@@ -1,6 +1,3 @@
-Project \#3 Decision Tree Learning
-----------------------------------
-
 # Introduction
 
 In this project you will work in groups of up to three to write a Python program to implement a classifier to learn the structure of data from a set of training examples. You will evaluate your classifier using the [congressional voting records dataset][votes], which lists the votes of members of the US House of Representatives on different issues and their classification as a Democrat or a Republican.
