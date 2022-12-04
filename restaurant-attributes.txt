@@ -1,0 +1,11 @@
+Will Wait,Yes,No
+Alternative,Yes,No
+Bar,No,Yes
+Fri/Sat,No,Yes
+Hungry,Yes,No
+Patrons,Some,Full,None
+Price,$$$,$,$$
+Rain,No,Yes
+Reservation,Yes,No
+Type,French,Thai,Burger,Italian
+Estimated Wait,0-10,30-60,10-30,>60

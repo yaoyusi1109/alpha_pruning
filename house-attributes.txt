@@ -1,0 +1,17 @@
+response,republican,democrat
+handicapped-infants,?,n,y
+water-project-cost-sharing,n,y,?
+adoption-of-the-budget-resolution,y,?,n
+physician-fee-freeze,y,n,?
+el-salvador-aid,n,y,?
+religious-groups-in-schools,y,n,?
+anti-satellite-test-ban,y,n,?
+aid-to-nicaraguan-contras,y,n,?
+mx-missile,y,?,n
+immigration,y,n,?
+synfuels-corporation-cutback,n,y,?
+education-spending,y,n,?
+superfund-right-to-sue,n,y,?
+crime,y,n,?
+duty-free-exports,n,y,?
+export-administration-act-south-africa,y,?,n
