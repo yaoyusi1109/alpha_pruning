@@ -7,8 +7,8 @@ import requests
 #     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
 #     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
 
-ATTRIBUTE_FILE = "restaurant-attributes.txt"
-CSV_FILE = "restaurant.csv"
+ATTRIBUTE_FILE = "house-attributes.txt"
+CSV_FILE = "house-votes-train.csv"
 
 def read_attributes_lines():
     # TODO: CHANGE THIS TO LOCAL FILE READ
