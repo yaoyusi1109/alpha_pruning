@@ -5,6 +5,7 @@ import sys
 
 ATTRIBUTE_FILE = sys.argv[1]
 TRAIN_FILE = sys.argv[2]
+TEST_FILE = sys.argv[3]
 
 def read_attributes_lines():
     file = open(ATTRIBUTE_FILE, 'r', encoding='UTF-8')
@@ -211,3 +212,26 @@ print("Decision Nodes:", decision_count(root))
 print("Maximum Depth:", max_depth(root))
 print("Minimum Depth:", min_depth(root))
 print("Average Depth of Root-to-Leaf:", sum_depth(root) / decision_count(root))
+
+def predict(root, row):
+    if root.isLeaf:
+        return root.leafVal
+    branch_val = row[root.attr_key]
+    if not branch_val in root.children:
+        return False
+    return predict(root.children[branch_val], row)
+
+def test(root):
+    df = pd.read_csv(TEST_FILE)
+    total = df.shape[0]
+    correct = 0
+
+    for i in range(total):
+        row = df.loc[i, :]
+        actual = predict(root, row)
+        expected = row[CLASSNAME]
+        if expected == actual:
+            correct += 1
+    return correct / total
+
+print("Correct Date:", test(root))
