@@ -3,16 +3,10 @@ import math
 import requests
 import sys
 
-# def read_attributes_lines():
-#     # TODO: CHANGE THIS TO LOCAL FILE READ
-#     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
-#     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
-
 ATTRIBUTE_FILE = sys.argv[1]
 TRAIN_FILE = sys.argv[2]
 
 def read_attributes_lines():
-    # TODO: CHANGE THIS TO LOCAL FILE READ
     file = open(ATTRIBUTE_FILE, 'r', encoding='UTF-8')
     return [x.rstrip('\n') for x in file.readlines()]
 
@@ -55,11 +49,6 @@ class Node:
     
 def read_train_dataframe():
     return pd.read_csv(TRAIN_FILE)
-
-# def read_train_dataframe():
-#     # TODO: CHANGE THIS TO LOCAL FILE READ
-#     train_csv_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant.csv"
-#     return pd.read_csv(train_csv_url)
 
 def get_attributes_dictionary():
     attributes = {}
@@ -213,7 +202,6 @@ ATTR_DICT = get_attributes_dictionary()
 attr_candidate_set = set(ATTR_DICT.keys())
 
 train_data = read_train_dataframe()
-
 
 root = build_root(train_data, ATTR_DICT, attr_candidate_set)
 
