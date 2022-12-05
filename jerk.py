@@ -2,14 +2,17 @@ import pandas as pd
 import math
 import requests
 
+# def read_attributes_lines():
+#     # TODO: CHANGE THIS TO LOCAL FILE READ
+#     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
+#     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
 
-def read_attributes_lines(filename):
+def read_attributes_lines():
     # TODO: CHANGE THIS TO LOCAL FILE READ
-    file = open(filename, 'r', encoding='UTF-8')
+    file = open("restaurant-attributes.txt", 'r', encoding='UTF-8')
     return [x.rstrip('\n') for x in file.readlines()]
 
-ATTR_LINES = read_attributes_lines("restaurant-attributes.txt")
-# print(ATTR_LINES)
+ATTR_LINES = read_attributes_lines()
 CLASSNAME = ATTR_LINES[0].split(',')[0]
 YESNAME = ATTR_LINES[0].split(',')[1]
 NONAME = ATTR_LINES[0].split(',')[2]
@@ -46,10 +49,13 @@ class Node:
             raise Exception("I'm a leaf!")
         return self.children[branch_val]
     
-def read_train_dataframe(filename):
-    # TODO: CHANGE THIS TO LOCAL FILE READ
-    train_csv_url = filename
-    return pd.read_csv(train_csv_url)
+def read_train_dataframe():
+    return pd.read_csv("restaurant.csv")
+
+# def read_train_dataframe():
+#     # TODO: CHANGE THIS TO LOCAL FILE READ
+#     train_csv_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant.csv"
+#     return pd.read_csv(train_csv_url)
 
 def get_attributes_dictionary():
     attributes = {}
@@ -159,28 +165,49 @@ def visualize(root, prefix):
         print(child_prefix + "Branch " + branch_val)
         visualize(child, child_prefix)
 
+def node_count(root):
+    if root.isLeaf:
+        return 1
+    retval = 0
+    for _, child in root.children.items():
+        retval += node_count(child)
+    return retval + 1
+
+def decision_count(root):
+    if root.isLeaf:
+        return 1
+    retval = 0
+    for _, child in root.children.items():
+        retval += decision_count(child)
+    return retval
+
+def max_depth(root):
+    if root.isLeaf:
+        return 1
+    dep = float('-inf')
+    for _, child in root.children.items():
+        dep = max(dep, max_depth(child))
+    return dep + 1
+
+def min_depth(root):
+    if root.isLeaf:
+        return 1
+    dep = float('inf')
+    for _, child in root.children.items():
+        dep = min(dep, min_depth(child))
+    return dep + 1
+
 ATTR_DICT = get_attributes_dictionary()
 attr_candidate_set = set(ATTR_DICT.keys())
 
-train_data = read_train_dataframe("restaurant.csv")
+train_data = read_train_dataframe()
 
 
 root = build_root(train_data, ATTR_DICT, attr_candidate_set)
 
 visualize(root, "")
-
-
-
-
-
-
-
-
-
-
-
-         
-         
-      
-
+print("Total Nodes: ", node_count(root))
+print("Decision Nodes: ", decision_count(root))
+print("Maximum Depth: ", max_depth(root))
+print("Minimum Depth: ", min_depth(root))
 
