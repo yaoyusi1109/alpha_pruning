@@ -1,14 +1,15 @@
 import pandas as pd
 import math
 import requests
+import sys
 
 # def read_attributes_lines():
 #     # TODO: CHANGE THIS TO LOCAL FILE READ
 #     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
 #     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
 
-ATTRIBUTE_FILE = "house-attributes.txt"
-CSV_FILE = "house-votes-train.csv"
+ATTRIBUTE_FILE = sys.argv[2]
+TRAIN_FILE = sys.argv[3]
 
 def read_attributes_lines():
     # TODO: CHANGE THIS TO LOCAL FILE READ
@@ -53,7 +54,7 @@ class Node:
         return self.children[branch_val]
     
 def read_train_dataframe():
-    return pd.read_csv(CSV_FILE)
+    return pd.read_csv(TRAIN_FILE)
 
 # def read_train_dataframe():
 #     # TODO: CHANGE THIS TO LOCAL FILE READ
