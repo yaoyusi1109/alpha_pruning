@@ -234,4 +234,4 @@ def test(root):
             correct += 1
     return correct / total
 
-print("Correct Date:", test(root))
+print("Correct Rate:", test(root))
