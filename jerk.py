@@ -6,10 +6,10 @@ import requests
 def read_attributes_lines(filename):
     # TODO: CHANGE THIS TO LOCAL FILE READ
     file = open(filename, 'r', encoding='UTF-8')
-    return file.readlines()
+    return [x.rstrip('\n') for x in file.readlines()]
 
 ATTR_LINES = read_attributes_lines("restaurant-attributes.txt")
-
+# print(ATTR_LINES)
 CLASSNAME = ATTR_LINES[0].split(',')[0]
 YESNAME = ATTR_LINES[0].split(',')[1]
 NONAME = ATTR_LINES[0].split(',')[2]
@@ -164,7 +164,7 @@ attr_candidate_set = set(ATTR_DICT.keys())
 
 train_data = read_train_dataframe("restaurant.csv")
 
-print(ATTR_DICT, attr_candidate_set)
+
 root = build_root(train_data, ATTR_DICT, attr_candidate_set)
 
 visualize(root, "")
