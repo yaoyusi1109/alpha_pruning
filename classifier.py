@@ -8,8 +8,8 @@ import sys
 #     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
 #     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
 
-ATTRIBUTE_FILE = sys.argv[2]
-TRAIN_FILE = sys.argv[3]
+ATTRIBUTE_FILE = sys.argv[1]
+TRAIN_FILE = sys.argv[2]
 
 def read_attributes_lines():
     # TODO: CHANGE THIS TO LOCAL FILE READ
@@ -223,4 +223,3 @@ print("Decision Nodes:", decision_count(root))
 print("Maximum Depth:", max_depth(root))
 print("Minimum Depth:", min_depth(root))
 print("Average Depth of Root-to-Leaf:", sum_depth(root) / decision_count(root))
-
