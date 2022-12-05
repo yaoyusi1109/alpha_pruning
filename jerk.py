@@ -7,9 +7,12 @@ import requests
 #     train_attribute_url = "https://raw.githubusercontent.com/yaoyusi1109/alpha_pruning/main/restaurant-attributes.txt"
 #     return requests.get(train_attribute_url).content.decode("utf-8").split('\n')
 
+ATTRIBUTE_FILE = "restaurant-attributes.txt"
+CSV_FILE = "restaurant.csv"
+
 def read_attributes_lines():
     # TODO: CHANGE THIS TO LOCAL FILE READ
-    file = open("restaurant-attributes.txt", 'r', encoding='UTF-8')
+    file = open(ATTRIBUTE_FILE, 'r', encoding='UTF-8')
     return [x.rstrip('\n') for x in file.readlines()]
 
 ATTR_LINES = read_attributes_lines()
@@ -50,7 +53,7 @@ class Node:
         return self.children[branch_val]
     
 def read_train_dataframe():
-    return pd.read_csv("restaurant.csv")
+    return pd.read_csv(CSV_FILE)
 
 # def read_train_dataframe():
 #     # TODO: CHANGE THIS TO LOCAL FILE READ
@@ -83,7 +86,7 @@ def calculate_gain(
     if overall_yes_count == overall_count:
         raise Exception("overall_yes_count equals to overall_count")
     term1 = entropy(overall_yes_count / overall_count)
-    
+
     term2 = 0
     
     for branch_attr_val in ATTR_DICT[attr_key]:
@@ -127,7 +130,7 @@ def build_root(
         root = Node(True)
         root.setNo()
         return root
-    
+
     attr_gain_pairs_lst = []
     for attr_key in attr_candidates_set:
         gain = calculate_gain(
@@ -197,6 +200,14 @@ def min_depth(root):
         dep = min(dep, min_depth(child))
     return dep + 1
 
+def sum_depth(root):
+    if root.isLeaf:
+        return 1
+    dep = 0
+    for _, child in root.children.items():
+        dep += (sum_depth(child) + 1)
+    return dep
+
 ATTR_DICT = get_attributes_dictionary()
 attr_candidate_set = set(ATTR_DICT.keys())
 
@@ -206,8 +217,9 @@ train_data = read_train_dataframe()
 root = build_root(train_data, ATTR_DICT, attr_candidate_set)
 
 visualize(root, "")
-print("Total Nodes: ", node_count(root))
-print("Decision Nodes: ", decision_count(root))
-print("Maximum Depth: ", max_depth(root))
-print("Minimum Depth: ", min_depth(root))
+print("Total Nodes:", node_count(root))
+print("Decision Nodes:", decision_count(root))
+print("Maximum Depth:", max_depth(root))
+print("Minimum Depth:", min_depth(root))
+print("Average Depth of Root-to-Leaf:", sum_depth(root) / decision_count(root))
 
